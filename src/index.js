@@ -50,9 +50,27 @@ const pizzaData = [
 
 function App() {
   return <div>
-    <h1>Hello Reactjs</h1>
-    <Pizza />
+    <Header />
+    <Menu />
     </div>
+}
+
+function Header() {
+ return <h1>Fast React Pizza Co.</h1>
+}
+
+function Menu() {
+ return <div>
+  <h1>Our menu</h1>
+  <Pizza />
+ </div>
+}
+
+function Footer() {
+  return (
+    <footer>{new Date().toLocaleTimeString()}. We're currently open!</footer>
+  )
+//  return React.createElement("footer", null, "We'r currently open!")
 }
 
 function Pizza() {
@@ -64,6 +82,7 @@ function Pizza() {
  </div>
  )
 }
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
