@@ -47,51 +47,70 @@ const pizzaData = [
   },
 ];
 
-
 function App() {
-  return <div>
-    <Header />
-    <Menu />
+  return (
+    <div className="font-sans min-h-screen bg-gray-100">
+      <Header />
+      <Menu />
+      <Footer />
     </div>
+  );
 }
 
 function Header() {
- return <h1>Fast React Pizza Co.</h1>
+  return (
+    <header className="bg-gray-800 text-white text-center py-6">
+      <h1 className="text-4xl font-bold">Fast React Pizza Co.</h1>
+    </header>
+  );
 }
 
 function Menu() {
- return <div>
-  <h1>Our menu</h1>
-  <Pizza />
- </div>
+  return (
+    <main className="py-10">
+      <h2 className="text-3xl text-center font-semibold mb-8">Our Menu</h2>
+      <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {pizzaData.map((pizza, index) => (
+          <Pizza key={index} pizza={pizza} />
+        ))}
+      </div>
+    </main>
+  );
+}
+
+function Pizza({ pizza }) {
+  return (
+    <div className={`bg-white p-6 rounded-lg shadow-md ${pizza.soldOut ? "opacity-50" : ""}`}>
+      <img
+        src={pizza.photoName}
+        alt={pizza.name}
+        className="w-full h-40 object-cover rounded-md mb-4"
+      />
+      <h3 className="text-2xl font-semibold">{pizza.name}</h3>
+      <p className="text-gray-600">{pizza.ingredients}</p>
+      <p className="text-xl font-bold mt-2">${pizza.price}</p>
+      {pizza.soldOut && <p className="text-red-500 font-semibold">Sold Out</p>}
+    </div>
+  );
 }
 
 function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 12;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+
   return (
-    <footer>{new Date().toLocaleTimeString()}. We're currently open!</footer>
-  )
-//  return React.createElement("footer", null, "We'r currently open!")
+    <footer className="bg-gray-800 text-white text-center py-4">
+      <p>{isOpen ? "We're currently open!" : "Sorry, we're closed."}</p>
+      <p>Current time: {new Date().toLocaleTimeString()}</p>
+    </footer>
+  );
 }
-
-function Pizza() {
- return (
-  <div>
-    <img src='pizzas/funghi.jpg' alt='pizza funghi'/>
-    <h1>Pizza Prosciutto</h1>
-    <p>Tomato, mozarella, ham, aragula, and burrata cheese</p>
- </div>
- )
-}
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   <App />
+    <App />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-
