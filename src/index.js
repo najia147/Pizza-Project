@@ -102,10 +102,25 @@ function Footer() {
 
   return (
     <footer className="bg-gray-800 text-white text-center py-4">
-      <p>{isOpen ? "We're currently open!" : "Sorry, we're closed."}</p>
-      <p>Current time: {new Date().toLocaleTimeString()}</p>
+      {
+        isOpen ? (
+          <Order closeHour={closeHour}/>
+        ) : (
+          <p>We're happy to welcome you between {openHour}:00 and {closeHour}:00.</p>
+        )
+      }
     </footer>
   );
+}
+
+function Order(props) {
+  return (
+    <div>
+      <p>We'r open until {props.closeHour}:00. Come visit us or order online.
+      </p>
+      <button>Order</button>
+    </div>
+  )
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
