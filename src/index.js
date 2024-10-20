@@ -79,17 +79,18 @@ function Menu() {
 }
 
 function Pizza({ pizza }) {
+  const {name, ingredients, price, photoName, soldOut}= pizza;
   return (
     <div className={`bg-white p-6 rounded-lg shadow-md ${pizza.soldOut ? "opacity-50" : ""}`}>
       <img
-        src={pizza.photoName}
-        alt={pizza.name}
+        src={photoName}
+        alt={name}
         className="w-full h-40 object-cover rounded-md mb-4"
       />
-      <h3 className="text-2xl font-semibold">{pizza.name}</h3>
-      <p className="text-gray-600">{pizza.ingredients}</p>
-      <p className="text-xl font-bold mt-2">${pizza.price}</p>
-      {pizza.soldOut && <p className="text-red-500 font-semibold">Sold Out</p>}
+      <h3 className="text-2xl font-semibold">{name}</h3>
+      <p className="text-gray-600">{ingredients}</p>
+      <p className="text-xl font-bold mt-2">${price}</p>
+      {soldOut && <p className="text-red-500 font-semibold">Sold Out</p>}
     </div>
   );
 }
@@ -113,10 +114,10 @@ function Footer() {
   );
 }
 
-function Order(props) {
+function Order({closeHour}) {
   return (
     <div>
-      <p>We'r open until {props.closeHour}:00. Come visit us or order online.
+      <p>We'r open until {closeHour}:00. Come visit us or order online.
       </p>
       <button>Order</button>
     </div>
