@@ -66,14 +66,25 @@ function Header() {
 }
 
 function Menu() {
+ const pizzas = pizzaData;
+ const numPizzas = pizzas.length;
+
   return (
     <main className="py-10">
       <h2 className="text-3xl text-center font-semibold mb-8">Our Menu</h2>
-      <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {pizzaData.map((pizza, index) => (
+      {
+        numPizzas > 0 ? (
+      <>
+       <p style={{textAlign: 'center', margin: '10px'}}>Authentic italian cuisine. 6 creative dishes to choose from. All from our stone oven, all organic, all delicious.</p>
+      <ul className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {pizzaData.map((pizza, index) => (
           <Pizza key={index} pizza={pizza} />
         ))}
-      </div>
+      </ul>
+      </>
+        ) : 
+        <p>We're still working on our menu. Please come back later :)</p>
+      }
     </main>
   );
 }
@@ -81,7 +92,7 @@ function Menu() {
 function Pizza({ pizza }) {
   const {name, ingredients, price, photoName, soldOut}= pizza;
   return (
-    <div className={`bg-white p-6 rounded-lg shadow-md ${pizza.soldOut ? "opacity-50" : ""}`}>
+    <li className={`bg-white p-6 rounded-lg shadow-md ${pizza.soldOut ? "opacity-50" : ""}`}>
       <img
         src={photoName}
         alt={name}
@@ -91,7 +102,7 @@ function Pizza({ pizza }) {
       <p className="text-gray-600">{ingredients}</p>
       <p className="text-xl font-bold mt-2">${price}</p>
       {soldOut && <p className="text-red-500 font-semibold">Sold Out</p>}
-    </div>
+    </li>
   );
 }
 
